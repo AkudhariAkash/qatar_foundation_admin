@@ -16,9 +16,8 @@ def load_user(user_id):
 
 
 def ensure_database_exists(database_uri):
-    # On platforms like Render, DATABASE_URL points to a managed DB
-    # that is already provisioned. Skip local auto-create logic there.
-    if os.getenv("DATABASE_URL"):
+    # On managed platforms (Render), skip local auto-create logic.
+    if os.getenv("RENDER") or os.getenv("IS_RENDER") or os.getenv("DATABASE_URL"):
         return
 
     db_url = make_url(database_uri)
@@ -31,8 +30,13 @@ def ensure_database_exists(database_uri):
 
     admin_url = db_url.set(database="postgres")
 
-    import psycopg2
-    from psycopg2 import sql
+    try:
+        import psycopg2
+        from psycopg2 import sql
+    except Exception:
+        # If the adapter isn't available in this runtime, skip DB auto-create.
+        # SQLAlchemy will still initialize using configured URI afterward.
+        return
 
     conn = psycopg2.connect(
         host=admin_url.host,
