@@ -1,6 +1,7 @@
 from flask import Flask
 from flask_login import LoginManager
 from sqlalchemy.engine import make_url
+import os
 
 from config import Config
 from models import Admin, db
@@ -15,6 +16,11 @@ def load_user(user_id):
 
 
 def ensure_database_exists(database_uri):
+    # On platforms like Render, DATABASE_URL points to a managed DB
+    # that is already provisioned. Skip local auto-create logic there.
+    if os.getenv("DATABASE_URL"):
+        return
+
     db_url = make_url(database_uri)
     if db_url.get_backend_name() != "postgresql":
         return
