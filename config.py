@@ -17,6 +17,9 @@ def _build_database_uri():
             explicit_uri = explicit_uri.replace("postgres://", "postgresql+psycopg2://", 1)
         return explicit_uri
 
+    if os.getenv("RENDER"):
+        raise RuntimeError("DATABASE_URL is required on Render. Set it in Render Environment Variables.")
+
     db_host = os.getenv("DB_HOST")
     db_user = os.getenv("DB_USER")
     db_password = os.getenv("DB_PASSWORD")
