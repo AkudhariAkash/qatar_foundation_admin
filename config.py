@@ -10,6 +10,9 @@ load_dotenv()
 def _build_database_uri():
     explicit_uri = os.getenv("DATABASE_URL")
     if explicit_uri:
+        # Render commonly provides postgres://... which SQLAlchemy doesn't accept directly.
+        if explicit_uri.startswith("postgres://"):
+            explicit_uri = explicit_uri.replace("postgres://", "postgresql+psycopg2://", 1)
         return explicit_uri
 
     db_host = os.getenv("DB_HOST")
