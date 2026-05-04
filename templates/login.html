@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login | Qatar Foundation Admin</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}" />
+</head>
+<body>
+  <main class="container split">
+    <section class="card" id="loginCard">
+      <div class="actions">
+        <a class="btn secondary" href="{{ url_for('main.index_page') }}">Back</a>
+        <a class="btn secondary" href="{{ url_for('main.login_page') }}?view=signup">Sign Up</a>
+      </div>
+      <h2>Login</h2>
+      <form id="loginForm">
+        <label>Email<input type="email" name="email" required /></label>
+        <label>Password<input type="password" name="password" required /></label>
+        <label class="checkbox"><input type="checkbox" name="remember" /> Remember me</label>
+        <button class="btn" type="submit">Login</button>
+      </form>
+
+      <h3>Forgot Password</h3>
+      <form id="forgotForm">
+        <label>Email<input type="email" name="email" required /></label>
+        <button class="btn secondary" type="submit">Request Reset</button>
+      </form>
+    </section>
+
+    <section class="card" id="signupCard">
+      <div class="actions">
+        <a class="btn secondary" href="{{ url_for('main.index_page') }}">Back</a>
+        <a class="btn secondary" href="{{ url_for('main.login_page') }}?view=login">Login</a>
+      </div>
+      <h2>Sign Up</h2>
+      <form id="signupForm">
+        <label>Full Name<input type="text" name="full_name" required /></label>
+        <label>Email<input type="email" name="email" required /></label>
+        <label>Password<input type="password" name="password" minlength="8" required /></label>
+        <label>Confirm Password<input type="password" name="confirm_password" minlength="8" required /></label>
+        <button class="btn" type="submit">Create Account</button>
+      </form>
+    </section>
+  </main>
+  <div id="toast"></div>
+  <script src="{{ url_for('static', filename='js/auth.js') }}"></script>
+</body>
+</html>

@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Qatar Foundation Admin</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}" />
+</head>
+<body>
+  <main class="container">
+    <section class="card hero">
+      <h1>Qatar Foundation Admin Portal</h1>
+      <p>Manage admin authentication and opportunities in one secure place.</p>
+      <div class="actions">
+        <a class="btn" href="{{ url_for('main.login_page') }}?view=login">Login</a>
+        <a class="btn secondary" href="{{ url_for('main.login_page') }}?view=signup">Sign Up</a>
+      </div>
+    </section>
+  </main>
+</body>
+</html>
