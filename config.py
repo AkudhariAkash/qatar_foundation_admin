@@ -4,7 +4,9 @@ from urllib.parse import quote_plus
 from dotenv import load_dotenv
 
 
-load_dotenv()
+# Load .env only for local development. On Render, use dashboard env vars.
+if not os.getenv("RENDER"):
+    load_dotenv()
 
 
 def _build_database_uri():
